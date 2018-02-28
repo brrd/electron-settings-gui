@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- TODO: dynamic loading -->
+    <link href="../node_modules/pure-form/dist/pure-form.min.css" rel="stylesheet" />
+    <script src="../node_modules/pure-form/dist/pure-form.min.js"></script>
+  </head>
+  <body style="margin:0">
+    <div id="main"></div>
+  </body>
+  <script>
+    const configGui = require('../index.js');
+    configGui({
+      srcPath: 'schema.json',
+      container: "#main"
+    });
+  </script>
+</html>

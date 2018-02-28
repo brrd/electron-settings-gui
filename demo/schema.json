@@ -1,0 +1,56 @@
+{
+  "type": "object",
+  "id": "config-form",
+  "$schema": "http://json-schema.org/draft-03/schema#",
+  "title": "Configuration Form",
+  "additionalProperties": false,
+  "properties": {
+    "title": {
+      "title": "Title",
+      "id": "order1",
+      "type": "string",
+      "required": true,
+      "enum": [
+        "Dr",
+        "Mr",
+        "Mrs",
+        "Ms"
+      ]
+    },
+    "firstName": {
+      "title": "First name",
+      "id": "order2",
+      "type": "string",
+      "required": true,
+      "description": "John"
+    },
+    "surname": {
+      "title": "Surname",
+      "id": "order3",
+      "type": "string",
+      "required": true,
+      "description": "Appleseed"
+    },
+    "email": {
+      "title": "Email",
+      "id": "order4",
+      "type": "string",
+      "format": "email",
+      "required": true,
+      "description": "example@domain.com"
+    },
+    "phone": {
+      "title": "Telephone",
+      "id": "order5",
+      "type": "string"
+    },
+    "message": {
+      "title": "Experience",
+      "id": "order6",
+      "type": "string",
+      "format": "textarea",
+      "required": true,
+      "maxLength": 100
+    }
+  }
+}

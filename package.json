@@ -1,0 +1,25 @@
+{
+  "name": "electron-settings-gui",
+  "version": "0.1.0",
+  "description": "GUI for electron-settings",
+  "main": "index.js",
+  "scripts": {
+    "demo": "electron ./demo",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "electron",
+    "electron-settings",
+    "settings",
+    "configuration",
+    "gui",
+    "form"
+  ],
+  "author": "brrd",
+  "license": "MIT",
+  "dependencies": {
+    "electron": "^1.8.2",
+    "electron-settings": "^3.1.4",
+    "pure-form": "git+https://github.com/john-doherty/pure-form.git"
+  }
+}
