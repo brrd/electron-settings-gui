@@ -3,6 +3,10 @@
   "version": "0.1.0",
   "description": "GUI for electron-settings",
   "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/brrd/electron-settings-gui"
+  },
   "scripts": {
     "demo": "electron ./demo",
     "test": "echo \"Error: no test specified\" && exit 1"
