@@ -1,17 +1,17 @@
 const electron = require('electron');
 const settings = electron.remote.require('electron-settings');
 
-function init () {
-  const injectScript = (src) => {
+// TODO: replace callback by promise
+function init (callback) {
+  const injectScript = (src, callback) => {
     const script = document.createElement('script');
-    script.type = 'text/javascript';
-    script.src = src;
     document.head.appendChild(script);
+    script.onload = callback;
+    script.src = src;
   };
 
   const injectStylesheet = (src) => {
     const link = document.createElement('link');
-    link.type = 'text/css';
     link.rel = 'stylesheet';
     link.href = src;
     document.head.appendChild(link);
@@ -20,7 +20,7 @@ function init () {
   const cssPath = require.resolve("pure-form/dist/pure-form.min.css");
   const jsPath = require.resolve("pure-form/dist/pure-form.min.js");
   injectStylesheet(cssPath);
-  injectScript(jsPath);
+  injectScript(jsPath, callback);
 }
 
 function createForm (srcPath, container = document.body) {
@@ -34,24 +34,24 @@ function createForm (srcPath, container = document.body) {
 
 // TODO: add a way to define shema directly instead of using a filepath. Try using form.schema
 function run ({srcPath, container}) {
-  init();
+  init(() => {
+    if (typeof container === "string") {
+      container = document.querySelector(container);
+    }
+    const form = createForm(srcPath, container);
 
-  if (typeof container === "string") {
-    container = document.querySelector(container);
-  }
-  const form = createForm(srcPath, container);
+    const loadData = () => {
+      const config = settings.getAll();
+      form.value = config;
+    };
 
-  const loadData = () => {
-    const config = settings.getAll();
-    form.value = config;
-  };
+    form.addEventListener('pure-form-render-complete', loadData);
+    settings.watch("", loadData);
 
-  form.addEventListener('pure-form-render-complete', loadData);
-  settings.watch("", loadData);
-
-  // Run directly when validation is passed
-  form.addEventListener('pure-form-validation-passed', function(e) {
-    settings.setAll(e.target.value);
+    // Run directly when validation is passed
+    form.addEventListener('pure-form-validation-passed', function(e) {
+      settings.setAll(e.target.value);
+    });
   });
 }
 
