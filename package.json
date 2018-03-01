@@ -22,8 +22,10 @@
   "author": "brrd",
   "license": "MIT",
   "dependencies": {
-    "electron": "^1.8.2",
     "electron-settings": "^3.1.4",
     "pure-form": "^1.2.0"
+  },
+  "devDependencies": {
+    "electron": "^1.8.2"
   }
 }
