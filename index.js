@@ -17,9 +17,10 @@ function init () {
     document.head.appendChild(link);
   };
 
-  // FIXME: move assets into a vendor dir (copy deps with npm run build)
-  injectStylesheet("../node_modules/pure-form/dist/pure-form.min.css");
-  injectScript("../node_modules/pure-form/dist/pure-form.min.js");
+  const cssPath = require.resolve("pure-form/dist/pure-form.min.css");
+  const jsPath = require.resolve("pure-form/dist/pure-form.min.js");
+  injectStylesheet(cssPath);
+  injectScript(jsPath);
 }
 
 function createForm (srcPath, container = document.body) {
