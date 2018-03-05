@@ -2,7 +2,10 @@ const electron = require('electron');
 const settings = electron.remote.require('electron-settings');
 
 // TODO: replace callback by promise
-function init (callback) {
+function injectAssets () {
+  const cssPath = require.resolve("pure-form/dist/pure-form.min.css");
+  const jsPath = require.resolve("pure-form/dist/pure-form.min.js");
+
   const injectScript = (src, callback) => {
     const script = document.createElement('script');
     document.head.appendChild(script);
@@ -17,10 +20,11 @@ function init (callback) {
     document.head.appendChild(link);
   };
 
-  const cssPath = require.resolve("pure-form/dist/pure-form.min.css");
-  const jsPath = require.resolve("pure-form/dist/pure-form.min.js");
-  injectStylesheet(cssPath);
-  injectScript(jsPath, callback);
+  // TODO: reject => Error
+  return new Promise ((resolve, reject) => {
+    injectStylesheet(cssPath);
+    injectScript(jsPath, resolve);
+  });
 }
 
 function createForm ({schema, schemaPath, container = document.body}) {
@@ -37,7 +41,7 @@ function createForm ({schema, schemaPath, container = document.body}) {
 }
 
 function run ({schema, schemaPath, container}) {
-  init(() => {
+  return injectAssets().then(() => {
     if (typeof container === "string") {
       container = document.querySelector(container);
     }
@@ -55,6 +59,8 @@ function run ({schema, schemaPath, container}) {
     form.addEventListener('pure-form-validation-passed', function(e) {
       settings.setAll(e.target.value);
     });
+
+    return form;
   });
 }
 
