@@ -9,7 +9,36 @@
   <script>
     const configGui = require('../index.js');
     configGui({
-      srcPath: 'schema.json',
+      schema: {
+        "type": "object",
+        "id": "config-form",
+        "$schema": "http://json-schema.org/draft-03/schema#",
+        "title": "Configuration Form (from schema)",
+        "additionalProperties": false,
+        "properties": {
+          "title": {
+            "title": "Title",
+            "id": "order1",
+            "type": "string",
+            "required": true,
+            "enum": [
+              "Dr",
+              "Mr",
+              "Mrs",
+              "Ms"
+            ]
+          },
+          "firstName": {
+            "title": "First name",
+            "id": "order2",
+            "type": "string",
+            "required": true,
+            "description": "John"
+          }
+        }
+      },
+      // schemaPath is ignored if schema exists
+      schemaPath: 'schema.json',
       container: "#main"
     });
   </script>

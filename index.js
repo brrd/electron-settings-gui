@@ -23,22 +23,25 @@ function init (callback) {
   injectScript(jsPath, callback);
 }
 
-function createForm (srcPath, container = document.body) {
+function createForm ({schema, schemaPath, container = document.body}) {
   const el = document.createElement('pure-form');
   el.setAttribute('id', 'electron-config-form');
-  el.setAttribute('src', srcPath)
+  if (schema) {
+    el.schema = schema;
+  } else if (schemaPath) {
+    el.setAttribute('src', schemaPath);
+  }
   el.setAttribute('validate-on-blur', true);
   container.appendChild(el);
   return el;
 }
 
-// TODO: add a way to define shema directly instead of using a filepath. Try using form.schema
-function run ({srcPath, container}) {
+function run ({schema, schemaPath, container}) {
   init(() => {
     if (typeof container === "string") {
       container = document.querySelector(container);
     }
-    const form = createForm(srcPath, container);
+    const form = createForm({schema, schemaPath, container});
 
     const loadData = () => {
       const config = settings.getAll();
