@@ -27,9 +27,9 @@ function injectAssets () {
   });
 }
 
-function createForm ({schema, schemaPath, container}) {
+function createForm ({schema, schemaPath, container, id}) {
   const el = document.createElement('pure-form');
-  el.setAttribute('id', 'electron-config-form');
+  el.setAttribute('id', id);
   if (schema) {
     el.schema = schema;
   } else if (schemaPath) {
@@ -40,12 +40,12 @@ function createForm ({schema, schemaPath, container}) {
   return el;
 }
 
-function main ({schema, schemaPath, container = document.body}) {
+function main ({schema, schemaPath, container = document.body, id = 'electron-config-form'}) {
   return injectAssets().then(() => {
     if (typeof container === "string") {
       container = document.querySelector(container);
     }
-    const form = createForm({schema, schemaPath, container});
+    const form = createForm({schema, schemaPath, container, id});
 
     const loadData = () => {
       const config = settings.getAll();
