@@ -27,7 +27,7 @@ function injectAssets () {
   });
 }
 
-function createForm ({schema, schemaPath, container = document.body}) {
+function createForm ({schema, schemaPath, container}) {
   const el = document.createElement('pure-form');
   el.setAttribute('id', 'electron-config-form');
   if (schema) {
@@ -40,7 +40,7 @@ function createForm ({schema, schemaPath, container = document.body}) {
   return el;
 }
 
-function run ({schema, schemaPath, container}) {
+function main ({schema, schemaPath, container = document.body}) {
   return injectAssets().then(() => {
     if (typeof container === "string") {
       container = document.querySelector(container);
@@ -64,4 +64,4 @@ function run ({schema, schemaPath, container}) {
   });
 }
 
-module.exports = run;
+module.exports = main;
